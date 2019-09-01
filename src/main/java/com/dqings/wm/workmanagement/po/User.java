@@ -2,6 +2,8 @@ package com.dqings.wm.workmanagement.po;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 /**
  * @auther: dongqing
  * @date: 2019/8/30 17:36
@@ -9,7 +11,7 @@ import lombok.Data;
  */
 @Data
 public class User {
-    private Integer ID;//主键
+    private String ID;//主键
     private String userId;//用户ID
     private String userName;//用户名
     private String password;//密码
