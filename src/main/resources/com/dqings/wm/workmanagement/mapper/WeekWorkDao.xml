@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dqings.wm.workmanagement.mapper.DayWorkDao">
+
+    <resultMap type="com.dqings.wm.workmanagement.po.WeekPlanInfo" id="weekPlanInfo">
+        <id column="work_id_pri" property="workIdPri" jdbcType="VARCHAR" />
+        <result column="user_id" property="userId" jdbcType="VARCHAR" />
+        <result column="week_id" property="weekId" jdbcType="VARCHAR" />
+        <result column="work_describe" property="workDescribe" jdbcType="VARCHAR" />
+        <result column="plan_day" property="planDay" jdbcType="INTEGER" />
+        <result column="real_day" property="realDay" jdbcType="INTEGER" />
+        <result column="is_complete" property="isComplete" jdbcType="VARCHAR" />
+        <result column="sort" property="sort" jdbcType="INTEGER" />
+    </resultMap>
+
+    <resultMap type="com.dqings.wm.workmanagement.po.WeekInfo" id="weekInfo">
+        <id column="ID" property="ID" jdbcType="VARCHAR" />
+        <result column="week_id" property="weekId" jdbcType="VARCHAR" />
+        <result column="valid_work_day" property="validWorkDay" jdbcType="INTEGER" />
+        <result column="completeness" property="completeness" jdbcType="VARCHAR" />
+        <result column="week_status" property="weekStatus" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <resultMap type="com.dqings.wm.workmanagement.po.BackPlan" id="backPlan">
+        <id column="ID" property="ID" jdbcType="VARCHAR" />
+        <result column="week_id" property="weekId" jdbcType="VARCHAR" />
+        <result column="work_descirbe" property="workDescirbe" jdbcType="VARCHAR" />
+        <result column="sort" property="sort" jdbcType="INTEGER" />
+    </resultMap>
+
+</mapper>
