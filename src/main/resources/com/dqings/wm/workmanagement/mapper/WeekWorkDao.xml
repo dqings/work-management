@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dqings.wm.workmanagement.mapper.DayWorkDao">
+<mapper namespace="com.dqings.wm.workmanagement.mapper.WeekWorkDao">
 
     <resultMap type="com.dqings.wm.workmanagement.po.WeekPlanInfo" id="weekPlanInfo">
         <id column="work_id_pri" property="workIdPri" jdbcType="VARCHAR" />

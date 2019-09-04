@@ -78,6 +78,6 @@
     <div data-options="region:'center',title:''">
         <div id="tabId" class="easyui-tabs"></div>
     </div>
-    <div data-options="region:'south',title:'南'" style="height:100px;"></div>
+    <div data-options="region:'south',title:''" style="height:100px;"></div>
 </body>
 </html>
