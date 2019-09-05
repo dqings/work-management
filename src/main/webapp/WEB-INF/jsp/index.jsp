@@ -38,8 +38,9 @@
                             //创建选项卡
                             $("#tabId").tabs('add',{
                                 title:title,
-                                content:'<iframe src="'+page+'" frameborder="0" height="100%" width="100%"></iframe>',
+                                content:'<iframe  src="'+page+'" scrolling="auto" frameborder="0" height="100%" width="100%"></iframe>',
                                 closable:true,
+                                fit:true
                             });
                         }
                     }
@@ -63,6 +64,7 @@
         ];
         $(document).ready(function(){
             zTreeObj = $.fn.zTree.init($("#treeId"), setting, zNodes);
+            zTreeObj.expandAll(true);
         });
     </SCRIPT>
 </head>
@@ -75,7 +77,7 @@
             </div>
         </div>
     </div>
-    <div data-options="region:'center',title:''">
+    <div class="overflow-hidden" data-options="region:'center',title:''" style="height: 100%">
         <div id="tabId" class="easyui-tabs"></div>
     </div>
     <div data-options="region:'south',title:''" style="height:100px;"></div>

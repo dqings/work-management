@@ -28,18 +28,86 @@
         $("#dayWorkGrid").datagrid({
             url:'/day/getWorkContent',
             columns:[[
-                {field:'dayId',title:'编号',width:100},
-                {field:'userId',title:'用户编号',width:100},
-                {field:'createTime',title:'创建时间',width:100,align:'center'},
-                {field:'workEnvironment',title:'工作环境',width:100,align:'center'},
-                {field:'workContent',title:'工作内容',width:100,align:'center'}
+                {field:'dayId',title:'编号',width:230},
+                {field:'userId',title:'用户编号',width:230},
+                {field:'createTime',title:'创建时间',width:200,align:'center',
+                    formatter:formatDateBoxFull},
+                {field:'workEnvironment',title:'工作环境',width:100,align:'center',
+                    formatter: function(value,row,index){
+                        if (value=='1'){
+                            return '公司';
+                        } else if(value=='2'){
+                            return '在家';
+                        }else {
+                            return '出差';
+                        }
+                    }
+                },
+                {field:'workContent',title:'工作内容',width:510,align:'center'}
             ]],
+            pagePosition:'bottom',
             toolbar:toolbar,
             rownumbers:true,
             pagination:true,
-            pagePosition:'bottom'
+            fit:true
         });
     });
+
+    function formatDateBoxFull(value) {
+        if (value == null || value == '') {
+            return '';
+        }
+        var dt = parseToDate(value);
+        return dt.format("yyyy-MM-dd hh:mm:ss");
+    }
+    function parseToDate(value) {
+        if (value == null || value == '') {
+            return undefined;
+        }
+
+        var dt;
+        if (value instanceof Date) {
+            dt = value;
+        }
+        else {
+            if (!isNaN(value)) {
+                dt = new Date(value);
+            }
+            else if (value.indexOf('/Date') > -1) {
+                value = value.replace(/\/Date\//, '$1');
+                dt = new Date();
+                dt.setTime(value);
+            } else if (value.indexOf('/') > -1) {
+                dt = new Date(Date.parse(value.replace(/-/g, '/')));
+            } else {
+                dt = new Date(value);
+            }
+        }
+        return dt;
+    }
+
+    //为Date类型拓展一个format方法，用于格式化日期
+    Date.prototype.format = function (format) //author: meizz
+    {
+        var o = {
+            "M+": this.getMonth() + 1, //month
+            "d+": this.getDate(),    //day
+            "h+": this.getHours(),   //hour
+            "m+": this.getMinutes(), //minute
+            "s+": this.getSeconds(), //second
+            "q+": Math.floor((this.getMonth() + 3) / 3),  //quarter
+            "S": this.getMilliseconds() //millisecond
+        };
+        if (/(y+)/.test(format))
+            format = format.replace(RegExp.$1,
+                (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(format))
+                format = format.replace(RegExp.$1,
+                    RegExp.$1.length == 1 ? o[k] :
+                        ("00" + o[k]).substr(("" + o[k]).length));
+        return format;
+    };
 </script>
 <body>
     <table id="dayWorkGrid"></table>

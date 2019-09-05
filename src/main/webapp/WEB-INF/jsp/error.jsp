@@ -6,7 +6,7 @@
 </head>
 <body>
 <script>
-    alert("系统出错");
+    //alert("系统出错");
 </script>
 </body>
 </html>

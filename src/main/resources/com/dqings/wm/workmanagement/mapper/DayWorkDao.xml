@@ -18,7 +18,7 @@
         <result column="sort" property="sort" jdbcType="INTEGER" />
     </resultMap>
 
-    <select id="getWorkContent" parameterType="com.dqings.wm.workmanagement.po.DayWorkQuery" resultType="dayWork">
+    <select id="getWorkContent" parameterType="com.dqings.wm.workmanagement.po.DayWorkQuery" resultMap="dayWork">
         SELECT day_id,user_id,create_time,work_environment,work_content
         FROM   day_work
         <where>
