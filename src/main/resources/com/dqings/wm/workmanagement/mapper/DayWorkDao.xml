@@ -18,4 +18,35 @@
         <result column="sort" property="sort" jdbcType="INTEGER" />
     </resultMap>
 
+    <select id="getWorkContent" parameterType="com.dqings.wm.workmanagement.po.DayWorkQuery" resultType="dayWork">
+        SELECT day_id,user_id,create_time,work_environment,work_content
+        FROM   day_work
+        <where>
+            <if test="dayId!=null and dayId!=''">
+                day_id=#{dayId}
+            </if>
+            <if test="userId!=null and userId!=''">
+                user_id=#{userId}
+            </if>
+            <if test="createTime!=null">
+                create_time = #{createTime}
+            </if>
+            <if test="workEnvironment!=null and workEnvironment!=''">
+                work_environment=#{workEnvironment}
+            </if>
+            <if test="workContent!=null and workContent!=''">
+                work_content like %#{workContent}%
+            </if>
+        </where>
+        limit #{page},#{rows}
+    </select>
+
+    <select id="getWorkCount" resultType="java.lang.Integer">
+        SELECT count(1) from day_work
+    </select>
+
+    <insert id="addDayWork" parameterType="com.dqings.wm.workmanagement.po.DayWork">
+        INSERT INTO day_work(day_id,user_id,create_time,work_environment,work_content)
+        VALUES (#{dayId},#{userId},#{createTime},#{workEnvironment},#{workContent})
+    </insert>
 </mapper>

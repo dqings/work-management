@@ -4,6 +4,7 @@ import com.dqings.wm.workmanagement.enums.CodeEnum;
 import com.dqings.wm.workmanagement.mapper.UserDao;
 import com.dqings.wm.workmanagement.po.User;
 import com.dqings.wm.workmanagement.service.user.UserService;
+import com.dqings.wm.workmanagement.utils.IDUtils;
 import com.dqings.wm.workmanagement.utils.SequenceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
+    private final String IDPREFIX="USER";
 
     @Autowired
     private UserDao userDao;
@@ -26,7 +28,7 @@ public class UserServiceImpl implements UserService {
             //生成主键
             user.setID(SequenceUtil.nextId());
             //生成唯一标识
-            user.setUserId(UUID.randomUUID().toString().replace("-",""));
+            user.setUserId(IDPREFIX+ IDUtils.getID());
             userDao.saveUser(user);
             return CodeEnum.SUCCESS.getCode();
         }catch (Exception e){

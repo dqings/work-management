@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../static/js/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/easyUi/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../static/easyUi/themes/icon.css">
+    <script type="text/javascript" src="../static/easyUi/jquery.easyui.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#saveDayWork').bind('click', function(){
+                $("#dayWorkForm").form('submit',{
+                    url:'/day/addDayWork',
+                    success:function(data){
+                        $("#addDialog").dialog("close");
+                        $("#dayWorkGrid").datagrid("reload");
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <form id="dayWorkForm" method="post">
+        <div align="center">
+            <span>工作环境:</span>
+            <select id="cc" class="easyui-combobox" name="workEnvironment" style="width:200px;panelHeight:50px ">
+                <option value="0">请选择</option>
+                <option value="1">公司</option>
+                <option value="2">家里</option>
+                <option value="3">出差</option>
+            </select>
+        </div>
+        <div align="center">
+            <span>工作内容:</span>
+            <input class="easyui-textbox" name="workContent" data-options="multiline:true" style="height:300px;width: 200px;"/>
+        </div>
+        <br>
+        <br>
+        <div id="btn" align="center">
+            <a id="saveDayWork" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+        </div>
+    </form>
+</body>
+</html>
