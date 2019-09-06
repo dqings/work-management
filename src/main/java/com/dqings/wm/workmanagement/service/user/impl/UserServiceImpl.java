@@ -1,6 +1,7 @@
 package com.dqings.wm.workmanagement.service.user.impl;
 
 import com.dqings.wm.workmanagement.enums.CodeEnum;
+import com.dqings.wm.workmanagement.enums.ConstantEnum;
 import com.dqings.wm.workmanagement.mapper.UserDao;
 import com.dqings.wm.workmanagement.po.User;
 import com.dqings.wm.workmanagement.service.user.UserService;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 @Service
@@ -46,5 +48,10 @@ public class UserServiceImpl implements UserService {
             LOG.error("登录异常",e);
         }
         return null;
+    }
+
+    @Override
+    public User getUser(HttpServletRequest request) {
+        return (User) request.getSession().getAttribute(ConstantEnum.USER.getCode());
     }
 }

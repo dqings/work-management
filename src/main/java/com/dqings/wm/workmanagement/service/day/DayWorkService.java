@@ -1,9 +1,6 @@
 package com.dqings.wm.workmanagement.service.day;
 
-import com.dqings.wm.workmanagement.po.DayWork;
-import com.dqings.wm.workmanagement.po.DayWorkQuery;
-import com.dqings.wm.workmanagement.po.PageBean;
-import com.dqings.wm.workmanagement.po.User;
+import com.dqings.wm.workmanagement.po.*;
 
 /**
  * @auther: dongqing
@@ -11,6 +8,8 @@ import com.dqings.wm.workmanagement.po.User;
  * @description:
  */
 public interface DayWorkService {
-    PageBean<DayWork> getWorkContent(DayWorkQuery dayWorkQuery);
+    PageBean<DayWork> getWorkContent(DayWorkQuery dayWorkQuery,User user);
     String addDayWork(DayWork dayWork, User user);
+    PageBean<WorkRemark> getWorkRemark(WorkRemarkQuery workRemarkQuery,User user);
+    String addWorkRemark(WorkRemark workRemark,User user);
 }

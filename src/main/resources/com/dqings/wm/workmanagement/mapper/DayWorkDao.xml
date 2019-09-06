@@ -49,4 +49,35 @@
         INSERT INTO day_work(day_id,user_id,create_time,work_environment,work_content)
         VALUES (#{dayId},#{userId},#{createTime},#{workEnvironment},#{workContent})
     </insert>
+
+    <select id="getWorkRemark" parameterType="com.dqings.wm.workmanagement.po.WorkRemark" resultMap="workRemark">
+        SELECT remark_id,user_id,title,content_describe,sort
+        FROM work_remark
+        <where>
+            <if test="remarkId!=null and remarkId!=''">
+                remark_id=#{remarkId}
+            </if>
+            <if test="userId!=null and userId!=''">
+                user_id=#{userId}
+            </if>
+            <if test="title!=null and title!=''">
+                title=#{title}
+            </if>
+            <if test="contentDescribe!=null and contentDescribe!=''">
+                content_describe=#{contentDescribe}
+            </if>
+        </where>
+        ORDER BY sort DESC
+        limit #{page},#{rows}
+    </select>
+    <insert id="addWorkRemark" parameterType="com.dqings.wm.workmanagement.po.WorkRemark">
+        INSERT INTO work_remark(remark_id,user_id,title,content_describe,sort)
+        VALUES (#{remarkId},#{userId},#{title},#{contentDescribe},#{sort})
+    </insert>
+    <select id="getRemarkCount" resultType="java.lang.Integer">
+        SELECT count(1) FROM work_remark
+    </select>
+    <select id="getRemarkSort" resultType="java.lang.String">
+        SELECT MAX(sort) FROM work_remark
+    </select>
 </mapper>

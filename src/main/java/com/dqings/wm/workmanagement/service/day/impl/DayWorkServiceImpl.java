@@ -1,10 +1,7 @@
 package com.dqings.wm.workmanagement.service.day.impl;
 
 import com.dqings.wm.workmanagement.mapper.DayWorkDao;
-import com.dqings.wm.workmanagement.po.DayWork;
-import com.dqings.wm.workmanagement.po.DayWorkQuery;
-import com.dqings.wm.workmanagement.po.PageBean;
-import com.dqings.wm.workmanagement.po.User;
+import com.dqings.wm.workmanagement.po.*;
 import com.dqings.wm.workmanagement.service.day.DayWorkService;
 import com.dqings.wm.workmanagement.utils.IDUtils;
 import org.slf4j.Logger;
@@ -26,17 +23,20 @@ public class DayWorkServiceImpl implements DayWorkService {
     private static final Logger LOG = LoggerFactory.getLogger(DayWorkServiceImpl.class);
 
     private static final String DAY_PREFIX="DAY";
+    private static final String REMARK_PREFIX="REMARK";
+
     @Autowired
     private DayWorkDao dayWorkDao;
 
     @Override
-    public PageBean<DayWork> getWorkContent(DayWorkQuery dayWorkQuery) {
+    public PageBean<DayWork> getWorkContent(DayWorkQuery dayWorkQuery,User user) {
         try {
             PageBean<DayWork> pageBean = new PageBean<>();
             pageBean.setCurrentPage(dayWorkQuery.getPage());
             pageBean.setPageSize(dayWorkQuery.getRows());
             int start = (pageBean.getCurrentPage()-1)*pageBean.getPageSize();
             dayWorkQuery.setPage(start);
+            dayWorkQuery.setUserId(user.getUserId());
             List<DayWork> dayWorkList = dayWorkDao.getWorkContent(dayWorkQuery);
             pageBean.setRows(dayWorkList);
             int workCount = dayWorkDao.getWorkCount();
@@ -58,6 +58,42 @@ public class DayWorkServiceImpl implements DayWorkService {
             return "success";
         }catch (Exception e){
             LOG.error("添加日报异常",e);
+        }
+        return null;
+    }
+
+    @Override
+    public PageBean<WorkRemark> getWorkRemark(WorkRemarkQuery workRemarkQuery,User user) {
+        try {
+            PageBean<WorkRemark> pageBean = new PageBean<>();
+            pageBean.setCurrentPage(workRemarkQuery.getPage());
+            pageBean.setPageSize(workRemarkQuery.getRows());
+            int start = (pageBean.getCurrentPage()-1)*pageBean.getPageSize();
+            workRemarkQuery.setPage(start);
+            workRemarkQuery.setUserId(user.getUserId());
+            List<WorkRemark> workRemarkList = dayWorkDao.getWorkRemark(workRemarkQuery);
+            pageBean.setRows(workRemarkList);
+            int remarkCount = dayWorkDao.getRemarkCount();
+            pageBean.setTotal(remarkCount);
+            return pageBean;
+        }catch (Exception e){
+            LOG.error("查询备忘录异常",e);
+        }
+        return null;
+    }
+
+    @Override
+    public String addWorkRemark(WorkRemark workRemark, User user) {
+        try {
+            workRemark.setRemarkId(REMARK_PREFIX+IDUtils.getID());
+            workRemark.setUserId(user.getUserId());
+            String remarkSort = dayWorkDao.getRemarkSort();
+            remarkSort = remarkSort==null?"0":remarkSort;
+            workRemark.setSort(Integer.valueOf(remarkSort)+1);
+            dayWorkDao.addWorkRemark(workRemark);
+            return "success";
+        }catch (Exception e){
+            LOG.error("添加备忘录异常",e);
         }
         return null;
     }

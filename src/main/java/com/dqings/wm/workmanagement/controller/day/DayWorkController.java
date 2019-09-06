@@ -1,11 +1,9 @@
 package com.dqings.wm.workmanagement.controller.day;
 
 import com.dqings.wm.workmanagement.enums.ConstantEnum;
-import com.dqings.wm.workmanagement.po.DayWork;
-import com.dqings.wm.workmanagement.po.DayWorkQuery;
-import com.dqings.wm.workmanagement.po.PageBean;
-import com.dqings.wm.workmanagement.po.User;
+import com.dqings.wm.workmanagement.po.*;
 import com.dqings.wm.workmanagement.service.day.DayWorkService;
+import com.dqings.wm.workmanagement.service.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,27 +27,46 @@ public class DayWorkController {
     @Autowired
     private DayWorkService dayWorkService;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping("/work")
     public String work(){
         return "/day/dayWork";
     }
 
-    @RequestMapping("/backPlan")
+    @RequestMapping("/workRemark")
     public String backPlan(){
-        return "/day/backPlan";
+        return "day/workRemark";
     }
 
     @RequestMapping("/getWorkContent")
     @ResponseBody
-    public PageBean<DayWork> getWorkContent(DayWorkQuery dayWorkQuery){
+    public PageBean<DayWork> getWorkContent(DayWorkQuery dayWorkQuery,HttpServletRequest request){
         LOG.info("查询日报信息开始,查询条件={}",dayWorkQuery);
-        return dayWorkService.getWorkContent(dayWorkQuery);
+        User user = userService.getUser(request);
+        return dayWorkService.getWorkContent(dayWorkQuery,user);
     }
 
     @RequestMapping("/addDayWork")
     public String addDayWork(DayWork dayWork, HttpServletRequest request){
         LOG.info("添加日报开始,参数={}",dayWork);
-        User user = (User) request.getSession().getAttribute(ConstantEnum.USER.getCode());
+        User user = userService.getUser(request);
         return dayWorkService.addDayWork(dayWork,user);
+    }
+
+    @RequestMapping("/getWorkRemark")
+    @ResponseBody
+    public PageBean<WorkRemark> getWorkRemark(HttpServletRequest request,WorkRemarkQuery workRemarkQuery){
+        LOG.info("查询备忘录开始,查询条件={}",workRemarkQuery);
+        User user = userService.getUser(request);
+        return dayWorkService.getWorkRemark(workRemarkQuery,user);
+    }
+
+    @RequestMapping("/addWorkRemark")
+    public String addWorkRemark(WorkRemark workRemark,HttpServletRequest request){
+        LOG.info("添加备忘录开始{}",workRemark);
+        User user = userService.getUser(request);
+        return dayWorkService.addWorkRemark(workRemark,user);
     }
 }

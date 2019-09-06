@@ -57,7 +57,7 @@
         var zNodes = [
             {"id":1,"pId":0,"name":"日报管理"},
             {"id":2,"pId":1,"name":"日报","page":"/day/work"},
-            {"id":3,"pId":1,"name":"备忘录","page":"/day/backPlan"},
+            {"id":3,"pId":1,"name":"备忘录","page":"/day/workRemark"},
             {"id":4,"pId":0,"name":"周报管理"},
             {"id":5,"pId":4,"name":"周报","page":""},
             {"id":6,"pId":4,"name":"下周工作计划","page":""}
