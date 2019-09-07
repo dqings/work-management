@@ -38,9 +38,9 @@
                             //创建选项卡
                             $("#tabId").tabs('add',{
                                 title:title,
-                                content:'<iframe  src="'+page+'" scrolling="auto" frameborder="0" height="100%" width="100%"></iframe>',
+                                content:'<iframe  src="'+page+'" scrolling="auto" frameborder="0" height="96.7%" width="100%"></iframe>',
                                 closable:true,
-                                fit:true
+                                fit:true,
                             });
                         }
                     }
@@ -59,17 +59,24 @@
             {"id":2,"pId":1,"name":"日报","page":"/day/work"},
             {"id":3,"pId":1,"name":"备忘录","page":"/day/workRemark"},
             {"id":4,"pId":0,"name":"周报管理"},
-            {"id":5,"pId":4,"name":"周报","page":""},
-            {"id":6,"pId":4,"name":"下周工作计划","page":""}
+            {"id":5,"pId":4,"name":"周报","page":"/week/weekPlanInfo"},
+            {"id":6,"pId":4,"name":"后续计划","page":"/week/backPlan"}
         ];
         $(document).ready(function(){
             zTreeObj = $.fn.zTree.init($("#treeId"), setting, zNodes);
             zTreeObj.expandAll(true);
         });
+        function logout() {
+            $("#logout").submit();
+        }
     </SCRIPT>
 </head>
 <body class="easyui-layout">
-    <div data-options="region:'north',title:'工作管理系统'" style="height:100px;"></div>
+    <div data-options="region:'north',title:'工作管理系统'" style="height:100px;">
+        <div align="right">
+            <a onclick="logout()" href="#">退出</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
     <div data-options="region:'west',title:'系统菜单'" style="width:200px;">
         <div class="easyui-accordion" fit="true">
             <div title="工作管理" style="overflow:auto;padding:10px;">
@@ -77,9 +84,12 @@
             </div>
         </div>
     </div>
-    <div class="overflow-hidden" data-options="region:'center',title:''" style="height: 100%">
+    <div  data-options="region:'center',title:''" style="height: 100%;overflow-y: hidden">
         <div id="tabId" class="easyui-tabs"></div>
     </div>
     <div data-options="region:'south',title:''" style="height:100px;"></div>
+    <form id="logout" method="post" action="/user/logout">
+
+    </form>
 </body>
 </html>

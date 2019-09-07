@@ -29,4 +29,88 @@
         <result column="sort" property="sort" jdbcType="INTEGER" />
     </resultMap>
 
+
+    <!--分页查询周报信息-->
+    <select id="getWeekPlanInfoList" parameterType="com.dqings.wm.workmanagement.po.WeekPlanInfoQuery" resultMap="weekPlanInfo">
+        SELECT work_id_pri,user_id,week_id,work_describe,plan_day,real_day,is_complete,sort
+        FROM week_plan_info
+        <where>
+            <if test="workIdPri!=null and workIdPri!=''">
+                work_id_pri=#{workIdPri}
+            </if>
+            <if test="userId!=null and userId!=''">
+                user_id=#{userId}
+            </if>
+            <if test="weekId!=null and weekId!=''">
+                week_id=#{weekId}
+            </if>
+            <if test="workDescribe!=null and workDescribe!=''">
+                work_describe like %#{workDescribe}%
+            </if>
+            <if test="planDay!=null">
+                plan_day={planDay}
+            </if>
+            <if test="realDay!=null">
+                real_day=#{realDay}
+            </if>
+            <if test="isComplete!=null and isComplete!=''">
+                is_complete=#{isComplete}
+            </if>
+        </where>
+        limit #{page},#{rows}
+    </select>
+
+    <!-- 查询周报总条数-->
+    <select id="getWeekPlanInfoCount" resultType="java.lang.Integer">
+        SELECT count(1) FROM week_plan_info
+    </select>
+    <!-- 查询周报排序最大值-->
+    <select id="getWeekPlanInfoSort" resultType="java.lang.String">
+        SELECT max(sort) FROM week_plan_info
+    </select>
+    <!-- 新增周报信息-->
+    <insert id="addWeekPlanInfo" parameterType="com.dqings.wm.workmanagement.po.WeekPlanInfo">
+        INSERT INTO week_plan_info(work_id_pri,user_id,week_id,work_describe,plan_day,real_day,is_complete,sort)
+        VALUES (#{workIdPri},#{userId},#{weekId},#{workDescribe},#{planDay},#{realDay},#{isComplete},#{sort})
+    </insert>
+    <!-- 查询后续计划的排序最大值-->
+    <select id="getBackPlanSort" resultType="java.lang.String">
+        SELECT MAX(sort) FROM back_plan
+    </select>
+
+    <!--新增后续计划-->
+    <insert id="addBackPlan" parameterType="com.dqings.wm.workmanagement.po.BackPlan">
+        INSERT INTO back_plan(ID,week_id,work_descirbe,sort)
+        VALUES (#{ID},#{weekId},#{workDescirbe},#{sort})
+    </insert>
+
+    <!--分页查询后续计划-->
+    <select id="getBackPlanList" parameterType="com.dqings.wm.workmanagement.po.BackPlanQuery" resultMap="backPlan">
+        SELECT ID,week_id,work_descirbe,sort
+        FROM back_plan
+        <where>
+            <if test="ID!=null and ID!=''">
+                ID=#{ID}
+            </if>
+            <if test="weekId!=null and weekId!=''">
+                week_id=#{weekId}
+            </if>
+            <if test="workDescirbe!=null and workDescirbe!=''">
+                work_descirbe=#{workDescirbe}
+            </if>
+        </where>
+        limit #{page},#{rows}
+    </select>
+
+    <!-- 查询后续计划总条数-->
+    <select id="getBackPlanCount" resultType="java.lang.Integer">
+        SELECT count(1) FROM back_plan
+    </select>
+
+    <!-- 删除转换过的后续计划-->
+    <delete id="deleteBackPlanById" parameterType="java.lang.String">
+        DELETE FROM back_plan
+        WHERE ID=#{id}
+    </delete>
+
 </mapper>

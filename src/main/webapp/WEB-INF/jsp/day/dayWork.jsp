@@ -1,5 +1,6 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <title>Title</title>
@@ -19,7 +20,8 @@
             closed: true,
             cache: false,
             href: '../static/day/addDayWork.html',
-            modal: true
+            modal: true,
+            border:false
         });
         var toolbar = $("#tb");
         $('#addDayWork').bind('click', function(){
@@ -43,13 +45,14 @@
                         }
                     }
                 },
-                {field:'workContent',title:'工作内容',width:510,align:'center'}
+                {field:'workContent',title:'工作内容',align:'center'}
             ]],
             pagePosition:'bottom',
             toolbar:toolbar,
             rownumbers:true,
             pagination:true,
-            fit:true
+            fit:true,
+            striped:true
         });
     });
 
@@ -112,8 +115,8 @@
 <body>
     <table id="dayWorkGrid"></table>
     <div id="tb">
-        <a id="addDayWork" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新增</a>
-        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">查询</a>
+        <a id="addDayWork" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新增日报</a>
+        <%--<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">查询</a>--%>
     </div>
     <div id="addDialog"></div>
 </body>

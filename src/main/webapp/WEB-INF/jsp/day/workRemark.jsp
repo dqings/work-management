@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <title>Title</title>
@@ -36,13 +37,14 @@
                     {field:'remarkId',title:'编号',width:230},
                     {field:'userId',title:'用户编号',width:230},
                     {field:'title',title:'标题',width:200,align:'center'},
-                    {field:'contentDescribe',title:'备注内容',width:100,align:'center'}
+                    {field:'contentDescribe',title:'备注内容',align:'center'}
                 ]],
                 pagePosition:'bottom',
                 toolbar:toolbar,
                 rownumbers:true,
                 pagination:true,
-                fit:true
+                fit:true,
+                striped:true
             });
         });
     </script>
@@ -50,8 +52,8 @@
 <body>
     <table id="workRemarkGrid"></table>
     <div id="tb">
-        <a id="addWorkRemark" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新增</a>
-        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">查询</a>
+        <a id="addWorkRemark" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新增备忘录</a>
+        <%--<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">查询</a>--%>
     </div>
     <div id="addWorkRemarkDialog"></div>
 </body>

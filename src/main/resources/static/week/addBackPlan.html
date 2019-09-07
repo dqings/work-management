@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../static/js/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/easyUi/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../static/easyUi/themes/icon.css">
+    <script type="text/javascript" src="../static/easyUi/jquery.easyui.min.js"></script>
+</head>
+<body>
+    <form class="easyui-form" id="backPlanForm" method="post">
+        <div align="center">
+            <span>周报标识:</span>
+            <input class="easyui-textbox" name="weekId" style="width: 200px;">
+        </div>
+        <div align="center">
+            <span>计划内容:</span>
+            <input class="easyui-textbox" name="workDescirbe" data-options="multiline:true" style="height:300px;width: 200px;"/>
+        </div>
+        <br>
+        <br>
+        <div id="btn" align="center">
+            <a id="saveBackPlan" onclick="addForm()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+        </div>
+        <script>
+            function addForm() {
+                $("#backPlanForm").form('submit',{
+                    url:'/week/addBackPlan',
+                    success:function(data){
+                        $("#addBackPlanDialog").dialog("close");
+                    }
+                });
+            }
+        </script>
+    </form>
+</body>
+</html>

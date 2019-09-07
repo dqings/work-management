@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../static/js/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/easyUi/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../static/easyUi/themes/icon.css">
+    <script type="text/javascript" src="../static/easyUi/jquery.easyui.min.js"></script>
+</head>
+<body>
+    <form class="easyui-form" id="weekPlanForm" method="post">
+        <div align="center">
+            <span>计划天数:</span>
+            <input class="easyui-textbox" name="planDay" style="width: 200px;">
+        </div>
+        <div align="center">
+            <span>计划内容:</span>
+            <input class="easyui-textbox" name="workDescribe" data-options="multiline:true" style="height:300px;width: 200px;"/>
+        </div>
+        <br>
+        <br>
+        <div id="btn" align="center">
+            <a id="saveWeekPlan" onclick="addForm()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+        </div>
+        <script>
+            function addForm() {
+                $("#weekPlanForm").form('submit',{
+                    url:'/week/addWeekPlanInfo',
+                    success:function(data){
+                        $("#addWeekPlanDialog").dialog("close");
+                        $("#weekPlanGrid").datagrid("reload");
+                    }
+                });
+            }
+        </script>
+    </form>
+</body>
+</html>
